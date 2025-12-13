@@ -4070,8 +4070,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   audioSource: {fileID: 1749749325}
-  bounceSFX: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
-  shatterSFX: {fileID: 8300000, guid: 4b4dd7245f6104c8c8eb07ccf6b386ed, type: 3}
+  bounceSFX: {fileID: 8300000, guid: 79231206044daec42ae533d07a4ff02e, type: 3}
+  shatterSFX: {fileID: 8300000, guid: 6c7e834546e5db64b9dd0d858eacabb6, type: 3}
 --- !u!4 &1749749324
 Transform:
   m_ObjectHideFlags: 0
