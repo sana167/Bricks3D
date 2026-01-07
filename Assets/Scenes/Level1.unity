@@ -3201,7 +3201,8 @@ GameObject:
   - component: {fileID: 1421878469}
   - component: {fileID: 1421878468}
   - component: {fileID: 1421878467}
-  - component: {fileID: 1421878466}
+  - component: {fileID: 1421878472}
+  - component: {fileID: 1421878473}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Untagged
@@ -3209,21 +3210,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1421878466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421878465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 465b655419f2fcf44ac558459c41ab8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PaddleController
-  speed: 10
-  maxZ: 4.5
-  minZ: -4.5
 --- !u!54 &1421878467
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3344,6 +3330,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1421878472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421878465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0818f21f1984d4096cfa708cc13cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager
+--- !u!114 &1421878473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421878465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465b655419f2fcf44ac558459c41ab8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaddleController
+  speed: 10
+  maxZ: 4.5
+  minZ: -4.5
 --- !u!1001 &1467592023
 PrefabInstance:
   m_ObjectHideFlags: 0

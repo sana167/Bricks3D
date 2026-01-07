@@ -18,19 +18,24 @@ public class BallMovement : MonoBehaviour
         transform.position = initialPosition;
     }
 
-    void Update()
+    public void TryLaunch()
     {
-        // Simple launch on spacebar press (for testing)
-        if (!isLaunched && Input.GetKeyDown(KeyCode.Space))
+        if (!isLaunched)
         {
             Launch();
             isLaunched = true;
-
+            
+            // ... (existing text hiding logic) ...
             if (startInstructionText != null)
             {
                 startInstructionText.gameObject.SetActive(false);
             }
         }
+    }
+
+    void Update()
+    {
+        // Check if the ball has fallen below the death Z position
         if (transform.position.z > deathZPosition)
         {
             ResetBall();
