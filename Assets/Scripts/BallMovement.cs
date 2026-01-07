@@ -10,7 +10,7 @@ public class BallMovement : MonoBehaviour
     public Vector3 initialPosition = new Vector3(0f, 0.5f, -1f); // Starting position of the ball
     public GameManager gameManager; // Reference to the GameManager for playing sound
     private Rigidbody rb; // Rigidbody component of the ball
-    private bool isLaunched = false;
+    public bool IsLaunched { get; private set; } = false;
 
     void Start()
     {
@@ -20,12 +20,11 @@ public class BallMovement : MonoBehaviour
 
     public void TryLaunch()
     {
-        if (!isLaunched)
+        if (!IsLaunched)
         {
             Launch();
-            isLaunched = true;
+            IsLaunched = true;
             
-            // ... (existing text hiding logic) ...
             if (startInstructionText != null)
             {
                 startInstructionText.gameObject.SetActive(false);
@@ -59,7 +58,7 @@ public class BallMovement : MonoBehaviour
         transform.position = initialPosition;
         
         // 3. Update the launch state
-        isLaunched = false;
+        IsLaunched = false;
 
         // 4. Show the instruction text again, ready for the next launch
         if (startInstructionText != null)

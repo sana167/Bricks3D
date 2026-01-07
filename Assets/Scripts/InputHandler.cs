@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem; // NEW: The Input System namespace
+using UnityEngine.EventSystems; // NEW: For checking UI interaction
 
 // We implement the interfaces that correspond to the actions we want to listen to.
 // I can only listen for 'Move' and 'Launch' actions that have been set up in the asset.
@@ -13,6 +14,7 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
     
     // Reference to the PaddleController script
     private PaddleController paddleController;
+    private BallMovement ball;
     private GameManager gameManager;
 
     void Awake()
@@ -21,7 +23,9 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
         playerInput = new PlayerInput();
         
         // 2. Assign this script as the listener for the 'Move' and 'Launch' actions
-        playerInput.Player.SetCallbacks(this); 
+        playerInput.Player.SetCallbacks(this);
+
+        ball = FindFirstObjectByType<BallMovement>();
 
         // Get the paddle controller reference
         paddleController = GetComponent<PaddleController>();
@@ -61,13 +65,20 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
         // We only care about the moment the button is pressed
         if (context.performed)
         {
-            // Trigger the launch logic on the Ball/GameManager (e.g., using a Unity Event or direct call)
-            // For now, let's call a public function on the Ball
-            
-            BallMovement ball = FindFirstObjectByType<BallMovement>(); // Simple method to find the ball
-            if (ball != null)
+            // 1. IMPORTANT: Ignore input if the user is clicking a UI button 
+            // (e.g., clicking 'Quit' on the pause menu shouldn't toggle pause)
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
+            // 2. Logic Branching
+            if (!ball.IsLaunched)
             {
-                ball.TryLaunch(); 
+                // If ball is on the paddle, launch it
+                ball.TryLaunch();
+            }
+            else
+            {
+                // If ball is already moving, toggle the pause state
+                gameManager.TogglePause();
             }
         }
     }
