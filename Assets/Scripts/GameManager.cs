@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource; 
     public AudioClip bounceSFX;
     public AudioClip shatterSFX;
+    public AudioClip explodeSFX;
     
     public GameObject pauseMenuUI; // Assign the PauseMenu Panel here
     private bool isPaused = false;

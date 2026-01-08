@@ -348,7 +348,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -461,9 +461,10 @@ MonoBehaviour:
   initialSpeed: 5
   minSpeedX: 2
   startInstructionText: {fileID: 1763140328}
-  deathZPosition: 10
-  initialPosition: {x: 0, y: 0.5, z: -1}
+  deathZPosition: 5
+  initialPosition: {x: 0, y: 0.45, z: -1}
   gameManager: {fileID: 1749749323}
+  explosionPrefab: {fileID: 2666437935308462311, guid: 1c89dc2ffd8a08e4e9574403e63920db, type: 3}
 --- !u!1001 &136322163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4400,6 +4401,7 @@ MonoBehaviour:
   audioSource: {fileID: 1749749325}
   bounceSFX: {fileID: 8300000, guid: 79231206044daec42ae533d07a4ff02e, type: 3}
   shatterSFX: {fileID: 8300000, guid: 6c7e834546e5db64b9dd0d858eacabb6, type: 3}
+  explodeSFX: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
   pauseMenuUI: {fileID: 1711440317}
 --- !u!4 &1749749324
 Transform:

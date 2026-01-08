@@ -6,8 +6,9 @@ public class BallMovement : MonoBehaviour
     public float initialSpeed = 10f; // Speed of the ball
     public float minSpeedX = 2f; // Minimum horizontal speed to prevent stalling
     public TextMeshProUGUI startInstructionText; // Reference to the instruction text UI
-    public float deathZPosition = 10f; // Z position at which the ball is considered "missed"
-    public Vector3 initialPosition = new Vector3(0f, 0.5f, -1f); // Starting position of the ball
+    public float deathZPosition; // Z position at which the ball is considered "missed"
+    public Vector3 initialPosition; // Starting position of the ball
+    public GameObject explosionPrefab; // Prefab to instantiate on ball destruction
     public GameManager gameManager; // Reference to the GameManager for playing sound
     private Rigidbody rb; // Rigidbody component of the ball
     public bool IsLaunched { get; private set; } = false;
@@ -32,20 +33,29 @@ public class BallMovement : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        // Check if the ball has fallen below the death Z position
-        if (transform.position.z > deathZPosition)
-        {
-            ResetBall();
-        }
-    }
-
     void Launch()
     {
         // Apply an initial force in a general forward and upward direction
         Vector3 direction = new Vector3(Random.Range(-0.5f, 0.5f), 0, 1f).normalized;
         rb.linearVelocity = direction * initialSpeed;
+    }
+
+    void Update()
+    {
+        // Check if the ball has fallen below the death Z position
+        if (transform.position.z > deathZPosition)
+        {
+            if (gameManager != null)
+            {
+                gameManager.PlaySFX(gameManager.explodeSFX);
+            }
+            if (explosionPrefab != null)
+            {
+                // Instantiate the explosion prefab at the ball's current position and rotation
+                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            }
+            ResetBall();
+        }
     }
 
     private void ResetBall()

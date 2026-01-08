@@ -85,7 +85,7 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
 
     public void OnQuit(InputAction.CallbackContext context)
     {
-// We only want to quit when the button is first pressed (performed)
+        // We only want to quit when the button is first pressed (performed)
         if (context.performed)
         {
             if (gameManager != null)
