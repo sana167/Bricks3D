@@ -2090,11 +2090,6 @@ MonoBehaviour:
   explodeSFX: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
   pauseMenuUI: {fileID: 1711440317}
   brickPrefab: {fileID: 1419901253316792088, guid: da0bfd023de1f334086bf1b56c02e922, type: 3}
-  currentBrickCount: 0
-  rows: 4
-  columns: 10
-  spacing: {x: -1, y: -0.8}
-  spawnOrigin: {x: 4.5, y: 0.5, z: -4.666}
 --- !u!4 &1749749324
 Transform:
   m_ObjectHideFlags: 0
