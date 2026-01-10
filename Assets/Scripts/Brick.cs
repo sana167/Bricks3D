@@ -30,6 +30,10 @@ public class Brick : MonoBehaviour
                 // 2. Instantiate the prefab at the brick's current position and rotation
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             }
+            if (gameManager != null)
+            {
+                gameManager.BrickDestroyed();
+            }
             // Destroy the brick
             Destroy(gameObject);
         }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,22 @@ public class GameManager : MonoBehaviour
     
     public GameObject pauseMenuUI; // Assign the PauseMenu Panel here
     private bool isPaused = false;
+    private Level1 level = new Level1();
+    public GameObject brickPrefab; // Assign the Brick prefab in the Inspector
+
+    void Start()
+    {
+        level.SpawnNewLevel(brickPrefab);
+    }
+
+    public void BrickDestroyed()
+    {
+        if (level.BrickDestroyed())
+        {
+            Invoke("Start", 1.0f);
+            FindFirstObjectByType<BallMovement>().ResetBall();
+        }
+    }
 
     public void TogglePause()
     {

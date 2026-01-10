@@ -58,7 +58,7 @@ public class BallMovement : MonoBehaviour
         }
     }
 
-    private void ResetBall()
+    public void ResetBall()
     {
         // 1. Stop all movement
         rb.linearVelocity = Vector3.zero;
