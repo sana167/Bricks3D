@@ -85,33 +85,5 @@ public class BallMovement : MonoBehaviour
         {
             gameManager.PlaySFX(gameManager.bounceSFX);
         }
-        // --- FIX FOR HORIZONTAL STALLING ---
-
-        // Get the current velocity of the ball
-        Vector3 currentVelocity = rb.linearVelocity;
-
-        // Check if the absolute X component is below the defined minimum
-        if (Mathf.Abs(currentVelocity.x) < minSpeedX)
-        {
-            // 1. Determine the direction the ball was moving before correction
-            float signX = Mathf.Sign(currentVelocity.x);
-            
-            // If the speed is near zero, use the last direction or default to positive if near perfect 0
-            if (signX == 0) 
-            {
-                signX = 1; 
-            }
-
-            // 2. Calculate the new, corrected X velocity
-            float correctedX = signX * minSpeedX;
-
-            // 3. Set the new velocity while keeping the existing Y and Z components
-            rb.linearVelocity = new Vector3(correctedX, currentVelocity.y, currentVelocity.z);
-
-            // 4. Re-normalize the total velocity to prevent speed changes (optional, but good practice)
-            rb.linearVelocity = rb.linearVelocity.normalized * initialSpeed; 
-            
-            Debug.Log("Corrected X velocity from " + currentVelocity.x + " to " + rb.linearVelocity.x);
-        }
     }
 }
