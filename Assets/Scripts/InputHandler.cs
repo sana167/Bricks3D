@@ -25,11 +25,11 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
         // 2. Assign this script as the listener for the 'Move' and 'Launch' actions
         playerInput.Player.SetCallbacks(this);
 
-        ball = FindFirstObjectByType<BallMovement>();
+        ball = FindAnyObjectByType<BallMovement>();
 
         // Get the paddle controller reference
         paddleController = GetComponent<PaddleController>();
-        gameManager = FindFirstObjectByType<GameManager>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void OnEnable()
@@ -65,11 +65,7 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
         // We only care about the moment the button is pressed
         if (context.performed)
         {
-            // 1. IMPORTANT: Ignore input if the user is clicking a UI button 
-            // (e.g., clicking 'Quit' on the pause menu shouldn't toggle pause)
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-
-            // 2. Logic Branching
+            // Logic Branching
             if (!ball.IsLaunched)
             {
                 // If ball is on the paddle, launch it

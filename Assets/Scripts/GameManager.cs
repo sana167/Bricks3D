@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         if (level.BrickDestroyed())
         {
             Invoke("Start", 1.0f);
-            FindFirstObjectByType<BallMovement>().ResetBall();
+            FindAnyObjectByType<BallMovement>().ResetBall();
         }
     }
 
