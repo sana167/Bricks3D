@@ -4,7 +4,6 @@ using TMPro;
 public class BallMovement : MonoBehaviour
 {
     public float initialSpeed = 10f; // Speed of the ball
-    public float minSpeedX = 2f; // Minimum horizontal speed to prevent stalling
     public TextMeshProUGUI startInstructionText; // Reference to the instruction text UI
     public float deathZPosition; // Z position at which the ball is considered "missed"
     public Vector3 initialPosition; // Starting position of the ball

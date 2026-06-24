@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Bricks3D.slnx"
+    "dotnet.defaultSolution": "Bricks3D.slnx",
+    "dotnet.preferCSharpExtension": true
 }

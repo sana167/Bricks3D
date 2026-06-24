@@ -31,7 +31,7 @@ public class BrickLevelSpawner : MonoBehaviour
                     spawnOrigin.z - (z * spacing.y)
                 );
 
-                GameObject brickObj = GameManager.Instantiate(brickPrefab, spawnPos, Quaternion.identity);
+                GameObject brickObj = Instantiate(brickPrefab, spawnPos, Quaternion.identity);
                 Brick brick = brickObj.GetComponent<Brick>();
                 brick.Initialize(levelManager, audioManager);
                 currentBrickCount++;

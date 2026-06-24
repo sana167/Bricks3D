@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem; // NEW: The Input System namespace
-using UnityEngine.EventSystems; // NEW: For checking UI interaction
 
 // We implement the interfaces that correspond to the actions we want to listen to.
 // I can only listen for 'Move' and 'Launch' actions that have been set up in the asset.
@@ -63,7 +62,7 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
     public void OnLaunch(InputAction.CallbackContext context)
     {
         // We only care about the moment the button is pressed
-        if (context.performed)
+        if (context.performed && ball != null && gameManager != null)
         {
             // Logic Branching
             if (!ball.IsLaunched)
