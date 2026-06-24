@@ -3,8 +3,8 @@ using UnityEngine;
 public class PaddleController : MonoBehaviour
 {
     public float speed = 10f;
-    public float maxZ = 4.5f; 
-    public float minZ = -4.5f; 
+    public float maxX = 4.5f; 
+    public float minX = -4.5f; 
 
     private float currentHorizontalInput = 0f; // New variable to store input value
 
@@ -23,7 +23,7 @@ public class PaddleController : MonoBehaviour
         Vector3 newPosition = transform.position + Vector3.left * horizontalInput * speed * Time.deltaTime;
         
         newPosition.z = transform.position.z; 
-        newPosition.x = Mathf.Clamp(newPosition.x, minZ, maxZ);
+        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
 
         transform.position = newPosition;
     }
