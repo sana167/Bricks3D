@@ -3,16 +3,13 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
     public GameObject explosionPrefab; // Prefab to instantiate on brick destruction
-    private GameManager gameManager; // Reference to the GameManager for playing sound
-    
-    void Start()
+    [SerializeField] private LevelManager levelManager;
+    [SerializeField] private AudioManager audioManager;
+
+    public void Initialize(LevelManager gm, AudioManager am)
     {
-        // Find the GameManager object when the scene starts
-        GameObject managerObject = GameObject.FindWithTag("GameManager"); 
-        if (managerObject != null)
-        {
-            gameManager = managerObject.GetComponent<GameManager>();
-        }
+        levelManager = gm;
+        audioManager = am;
     }
 
     // Called when another collider enters this brick's collider (trigger is off)
@@ -21,21 +18,21 @@ public class Brick : MonoBehaviour
         // Check if the colliding object is the Ball
         if (collision.gameObject.CompareTag("Ball"))
         {
-            if (gameManager != null)
+            // Destroy the brick
+            Destroy(gameObject);
+            if (audioManager != null)
             {
-                gameManager.PlaySFX(gameManager.shatterSFX);
+                audioManager.PlayShatter();
             }
             if (explosionPrefab != null)
             {
                 // 2. Instantiate the prefab at the brick's current position and rotation
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             }
-            if (gameManager != null)
+            if (levelManager != null)
             {
-                gameManager.BrickDestroyed();
+                levelManager.BrickDestroyed();
             }
-            // Destroy the brick
-            Destroy(gameObject);
         }
     }
 }

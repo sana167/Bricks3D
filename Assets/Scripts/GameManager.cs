@@ -1,31 +1,13 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioManager))]
+[RequireComponent(typeof(LevelManager))]
 public class GameManager : MonoBehaviour
 {
-    public AudioSource audioSource; 
-    public AudioClip bounceSFX;
-    public AudioClip shatterSFX;
-    public AudioClip explodeSFX;
-    
     public GameObject pauseMenuUI; // Assign the PauseMenu Panel here
     private bool isPaused = false;
-    private Level1 level = new Level1();
-    public GameObject brickPrefab; // Assign the Brick prefab in the Inspector
-
-    void Start()
-    {
-        level.SpawnNewLevel(brickPrefab);
-    }
-
-    public void BrickDestroyed()
-    {
-        if (level.BrickDestroyed())
-        {
-            Invoke("Start", 1.0f);
-            FindAnyObjectByType<BallMovement>().ResetBall();
-        }
-    }
+    [SerializeField] private BrickLevelSpawner level;
 
     public void TogglePause()
     {
@@ -71,12 +53,5 @@ public class GameManager : MonoBehaviour
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #endif
-    }
-    public void PlaySFX(AudioClip clip)
-    {
-        if (audioSource != null && clip != null)
-        {
-            audioSource.PlayOneShot(clip);
-        }
     }
 }

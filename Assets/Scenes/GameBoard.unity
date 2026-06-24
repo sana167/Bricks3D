@@ -278,7 +278,7 @@ MonoBehaviour:
   deathZPosition: 5
   initialPosition: {x: 0, y: 0.45, z: -1}
   explosionPrefab: {fileID: 2666437935308462311, guid: 1c89dc2ffd8a08e4e9574403e63920db, type: 3}
-  gameManager: {fileID: 1749749323}
+  audioManager: {fileID: 1749749326}
 --- !u!1 &153116621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,6 +2078,8 @@ GameObject:
   - component: {fileID: 1749749324}
   - component: {fileID: 1749749323}
   - component: {fileID: 1749749325}
+  - component: {fileID: 1749749326}
+  - component: {fileID: 1749749327}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -2097,12 +2099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb529585a6118974aa098eae13f23b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  audioSource: {fileID: 1749749325}
-  bounceSFX: {fileID: 8300000, guid: 79231206044daec42ae533d07a4ff02e, type: 3}
-  shatterSFX: {fileID: 8300000, guid: 6c7e834546e5db64b9dd0d858eacabb6, type: 3}
-  explodeSFX: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
   pauseMenuUI: {fileID: 1711440317}
-  brickPrefab: {fileID: 1419901253316792088, guid: da0bfd023de1f334086bf1b56c02e922, type: 3}
+  level: {fileID: 1990286911}
 --- !u!4 &1749749324
 Transform:
   m_ObjectHideFlags: 0
@@ -2215,6 +2213,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1749749326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749749322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0101d70d625807447bb2d48ef5eeb7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  audioSource: {fileID: 1749749325}
+  bounceSFX: {fileID: 8300000, guid: 79231206044daec42ae533d07a4ff02e, type: 3}
+  shatterSFX: {fileID: 8300000, guid: 6c7e834546e5db64b9dd0d858eacabb6, type: 3}
+  explodeSFX: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
+--- !u!114 &1749749327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749749322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a126f9d50cd6bd47a396ead05c418c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  ball: {fileID: 67587308}
+  totalBricks: 0
+  brickLevelSpawner: {fileID: 1990286911}
 --- !u!1 &1763140326
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,6 +2381,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763140326}
   m_CullTransparentMesh: 1
+--- !u!1 &1990286910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1990286912}
+  - component: {fileID: 1990286911}
+  m_Layer: 0
+  m_Name: LevelSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1990286911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990286910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaafbc5b77e7b1e4e981b4f972f15b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrickLevelSpawner
+  brickPrefab: {fileID: 1419901253316792088, guid: da0bfd023de1f334086bf1b56c02e922, type: 3}
+  levelManager: {fileID: 1749749327}
+  audioManager: {fileID: 1749749326}
+--- !u!4 &1990286912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990286910}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.30286, y: 0.25, z: 0.65977}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2369,3 +2445,4 @@ SceneRoots:
   - {fileID: 581863755}
   - {fileID: 1749749324}
   - {fileID: 1711440320}
+  - {fileID: 1990286912}

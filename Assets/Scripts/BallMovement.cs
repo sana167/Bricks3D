@@ -9,7 +9,7 @@ public class BallMovement : MonoBehaviour
     public float deathZPosition; // Z position at which the ball is considered "missed"
     public Vector3 initialPosition; // Starting position of the ball
     public GameObject explosionPrefab; // Prefab to instantiate on ball destruction
-    public GameManager gameManager; // Reference to the GameManager for playing sound
+    public AudioManager audioManager;
     private Rigidbody rb; // Rigidbody component of the ball
     public bool IsLaunched { get; private set; } = false;
 
@@ -45,9 +45,9 @@ public class BallMovement : MonoBehaviour
         // Check if the ball has fallen below the death Z position
         if (transform.position.z > deathZPosition)
         {
-            if (gameManager != null)
+            if (audioManager != null)
             {
-                gameManager.PlaySFX(gameManager.explodeSFX);
+                audioManager.PlayExplode();
             }
             if (explosionPrefab != null)
             {
@@ -81,9 +81,9 @@ public class BallMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (gameManager != null && !collision.gameObject.CompareTag("Brick"))
+        if (audioManager != null && !collision.gameObject.CompareTag("Brick"))
         {
-            gameManager.PlaySFX(gameManager.bounceSFX);
+            audioManager.PlayBounce();
         }
     }
 }
