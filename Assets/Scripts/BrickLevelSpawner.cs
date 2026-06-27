@@ -8,16 +8,17 @@ public class BrickLevelSpawner : MonoBehaviour
     private int columns = 10;
     private Vector2 spacing = new Vector2(-1f, -0.8f);
     private Vector3 spawnOrigin = new Vector3(4.5f, 0.5f, -4.666f);
-    public GameObject brickPrefab; // Assign the Brick prefab in the Inspector
+    public GameObject normalBrickPrefab; // Assign the Normal Brick prefab in the Inspector
+    public GameObject toughBrickPrefab; // Assign the Tough Brick prefab in the Inspector
     public LevelManager levelManager; // Assign the LevelManager in the Inspector
     public AudioManager audioManager; // Assign the AudioManager in the Inspector
 
     public void Start()
     {
-        SpawnLevel();
+        SpawnLevel(normalBrickPrefab);
     }
 
-    public void SpawnLevel()
+    public void SpawnLevel(GameObject brickPrefab)
     {
         int currentBrickCount = 0;
         for (int x = 0; x < columns; x++)

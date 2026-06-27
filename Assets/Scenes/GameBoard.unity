@@ -3098,7 +3098,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaafbc5b77e7b1e4e981b4f972f15b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrickLevelSpawner
-  brickPrefab: {fileID: 1419901253316792088, guid: da0bfd023de1f334086bf1b56c02e922, type: 3}
+  normalBrickPrefab: {fileID: 1419901253316792088, guid: da0bfd023de1f334086bf1b56c02e922, type: 3}
+  toughBrickPrefab: {fileID: 1419901253316792088, guid: 031bc73e9d1473c4e8c48db6e384eb06, type: 3}
   levelManager: {fileID: 1749749327}
   audioManager: {fileID: 1749749326}
 --- !u!4 &1990286912

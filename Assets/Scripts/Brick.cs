@@ -2,9 +2,20 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    public GameObject explosionPrefab; // Prefab to instantiate on brick destruction
+    public GameObject explosionPrefab;
+
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private AudioManager audioManager;
+
+    [SerializeField] private int hitPoints = 1;
+    [SerializeField] private Material damagedMaterial;
+
+    private Renderer brickRenderer;
+
+    private void Awake()
+    {
+        brickRenderer = GetComponent<Renderer>();
+    }
 
     public void Initialize(LevelManager gm, AudioManager am)
     {
@@ -12,27 +23,36 @@ public class Brick : MonoBehaviour
         audioManager = am;
     }
 
-    // Called when another collider enters this brick's collider (trigger is off)
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the colliding object is the Ball
-        if (collision.gameObject.CompareTag("Ball"))
+        if (!collision.gameObject.CompareTag("Ball")) return;
+
+        hitPoints--;
+
+        if (hitPoints > 0)
         {
-            // Destroy the brick
-            Destroy(gameObject);
-            if (audioManager != null)
+            if (damagedMaterial != null && brickRenderer != null)
             {
-                audioManager.PlayShatter();
+                brickRenderer.material = damagedMaterial;
             }
-            if (explosionPrefab != null)
-            {
-                // 2. Instantiate the prefab at the brick's current position and rotation
-                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            }
-            if (levelManager != null)
-            {
-                levelManager.BrickDestroyed();
-            }
+
+            return;
         }
+
+        DestroyBrick();
+    }
+
+    private void DestroyBrick()
+    {
+        Destroy(gameObject);
+
+        if (audioManager != null)
+            audioManager.PlayShatter();
+
+        if (explosionPrefab != null)
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
+        if (levelManager != null)
+            levelManager.BrickDestroyed();
     }
 }
