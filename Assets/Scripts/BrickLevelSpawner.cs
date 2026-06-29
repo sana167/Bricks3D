@@ -12,6 +12,7 @@ public class BrickLevelSpawner : MonoBehaviour
     public GameObject toughBrickPrefab; // Assign the Tough Brick prefab in the Inspector
     public LevelManager levelManager; // Assign the LevelManager in the Inspector
     public AudioManager audioManager; // Assign the AudioManager in the Inspector
+    public SunController sunController; // Assign the SunController in the Inspector
 
     public void Start()
     {
@@ -20,6 +21,9 @@ public class BrickLevelSpawner : MonoBehaviour
 
     public void SpawnLevel(GameObject brickPrefab)
     {
+        if (sunController != null) {
+            sunController.RandomizeSun();
+        }
         int currentBrickCount = 0;
         for (int x = 0; x < columns; x++)
         {
