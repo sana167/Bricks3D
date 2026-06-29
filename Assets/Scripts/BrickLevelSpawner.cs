@@ -16,7 +16,19 @@ public class BrickLevelSpawner : MonoBehaviour
 
     public void Start()
     {
-        SpawnLevel(normalBrickPrefab);
+        SpawnLevel(MainMenu.SelectedLevel);
+    }
+
+    private void SpawnLevel(int level)
+    {
+        if (level == 1)
+        {
+            SpawnLevel(normalBrickPrefab);
+        }
+        else if (level == 2)
+        {
+            SpawnLevel(toughBrickPrefab);
+        }
     }
 
     public void SpawnLevel(GameObject brickPrefab)

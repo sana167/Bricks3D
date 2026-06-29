@@ -180,17 +180,6 @@
                 },
                 {
                     "name": "",
-                    "id": "bad64e8e-2763-4e80-a310-bf4541395b03",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Launch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "91fbb619-be80-40ed-8dc4-121ecfbf24d5",
                     "path": "<Gamepad>/start",
                     "interactions": "",

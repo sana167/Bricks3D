@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenuUI; // Assign the PauseMenu Panel here
     private bool isPaused = false;
     [SerializeField] private BrickLevelSpawner level;
+    [SerializeField] private MenuController menuController;
 
     public void TogglePause()
     {
@@ -46,12 +47,6 @@ public class GameManager : MonoBehaviour
     // This is now called by the InputHandler
     public void RequestQuit()
     {
-        Debug.Log("Quit requested via Input System.");
-        
-        Application.Quit();
-
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+        menuController.ShowQuitDialog();
     }
 }
