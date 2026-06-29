@@ -8,6 +8,7 @@ TagManager:
   - GameManager
   - Brick
   - Paddle
+  - Tough Brick
   layers:
   - Default
   - TransparentFX
