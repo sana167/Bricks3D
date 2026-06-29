@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallMovement
   initialSpeed: 5
   startInstructionText: {fileID: 1763140328}
-  deathZPosition: 5
+  deathZPosition: 5.5
   initialPosition: {x: 0, y: 0.45, z: -1}
   explosionPrefab: {fileID: 2666437935308462311, guid: 1c89dc2ffd8a08e4e9574403e63920db, type: 3}
   audioManager: {fileID: 1749749326}
@@ -2316,7 +2316,7 @@ GameObject:
   - component: {fileID: 1421878473}
   m_Layer: 0
   m_Name: Paddle
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

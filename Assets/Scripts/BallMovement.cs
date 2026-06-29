@@ -11,6 +11,9 @@ public class BallMovement : MonoBehaviour
     public AudioManager audioManager;
     private Rigidbody rb; // Rigidbody component of the ball
     public bool IsLaunched { get; private set; } = false;
+    [SerializeField] private float minBallSpeed = 8f;
+    [SerializeField] private float maxBallSpeed = 12f;
+    [SerializeField] private float minZSpeed = 2f;
 
     void Start()
     {
@@ -84,5 +87,57 @@ public class BallMovement : MonoBehaviour
         {
             audioManager.PlayBounce();
         }
+
+        if (collision.gameObject.CompareTag("Paddle"))
+        {
+            AdjustBounceFromPaddle(collision);
+        } else
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * initialSpeed;
+        }
+    }
+
+    private void AdjustBounceFromPaddle(Collision collision)
+    {
+        float paddleX = collision.transform.position.x;
+        float ballX = transform.position.x;
+        float paddleWidth = collision.collider.bounds.size.x;
+
+        float hitFactor = (ballX - paddleX) / (paddleWidth / 2f);
+        hitFactor = Mathf.Clamp(hitFactor, -1f, 1f);
+
+        float maxX = 0.5f;
+
+        Vector3 newDirection = new Vector3(
+            hitFactor * maxX,
+            0f,
+            -1f
+        ).normalized;
+
+        rb.linearVelocity = newDirection * initialSpeed;
+    }
+
+    private void FixedUpdate()
+    {
+        if (!IsLaunched) return;
+
+        KeepBallMoving();
+    }
+
+    private void KeepBallMoving()
+    {
+        Vector3 velocity = rb.linearVelocity;
+
+        if (velocity.magnitude < minBallSpeed)
+        {
+            velocity = velocity.normalized * minBallSpeed;
+        }
+
+        if (Mathf.Abs(velocity.z) < minZSpeed)
+        {
+            velocity.z = Mathf.Sign(velocity.z == 0 ? -1 : velocity.z) * minZSpeed;
+        }
+
+        rb.linearVelocity = Vector3.ClampMagnitude(velocity, maxBallSpeed);
     }
 }
