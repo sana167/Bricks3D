@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    public GameObject explosionPrefab;
+    [SerializeField] private GameObject damagePrefab;
+    [SerializeField] private GameObject explosionPrefab;
 
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private AudioManager audioManager;
@@ -27,6 +28,11 @@ public class Brick : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Ball")) return;
 
+        if (audioManager != null)
+        {
+            audioManager.PlayShatter();
+        }
+
         hitPoints--;
 
         if (hitPoints > 0)
@@ -36,18 +42,15 @@ public class Brick : MonoBehaviour
                 brickRenderer.material = damagedMaterial;
             }
 
+            if (damagePrefab != null)
+            {
+                Instantiate(damagePrefab, transform.position, Quaternion.identity);
+            }
+
             return;
         }
 
-        DestroyBrick();
-    }
-
-    private void DestroyBrick()
-    {
         Destroy(gameObject);
-
-        if (audioManager != null)
-            audioManager.PlayShatter();
 
         if (explosionPrefab != null)
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);

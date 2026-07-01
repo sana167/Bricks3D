@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public AudioClip bounceSFX;
-    public AudioClip shatterSFX;
-    public AudioClip explodeSFX;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip bounceSFX;
+    [SerializeField] private AudioClip shatterSFX;
+    [SerializeField] private AudioClip explodeSFX;
 
     private void PlaySFX(AudioClip clip)
     {

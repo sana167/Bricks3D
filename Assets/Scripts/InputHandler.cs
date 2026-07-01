@@ -13,8 +13,8 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
     
     // Reference to the PaddleController script
     private PaddleController paddleController;
-    private BallMovement ball;
-    private GameManager gameManager;
+    [SerializeField] private BallMovement ball;
+    [SerializeField] private GameManager gameManager;
 
     void Awake()
     {
@@ -24,11 +24,8 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
         // 2. Assign this script as the listener for the 'Move' and 'Launch' actions
         playerInput.Player.SetCallbacks(this);
 
-        ball = FindAnyObjectByType<BallMovement>();
-
         // Get the paddle controller reference
         paddleController = GetComponent<PaddleController>();
-        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void OnEnable()
@@ -69,11 +66,6 @@ public class InputHandler : MonoBehaviour, PlayerInput.IPlayerActions
             {
                 // If ball is on the paddle, launch it
                 ball.TryLaunch();
-            }
-            else
-            {
-                // If ball is already moving, toggle the pause state
-                gameManager.TogglePause();
             }
         }
     }

@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864f256896e71f04d81620ada9ed4371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Brick
+  damagePrefab: {fileID: 2666437935308462311, guid: 36de5c1b6d47e9e4788ee74db843e63b, type: 3}
   explosionPrefab: {fileID: 2666437935308462311, guid: 033e418deb5ee0b41b332d6f49d1fd34, type: 3}
   levelManager: {fileID: 0}
   audioManager: {fileID: 0}

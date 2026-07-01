@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PaddleController : MonoBehaviour
 {
-    public float speed = 10f;
-    public float maxX = 4.5f; 
-    public float minX = -4.5f; 
+    [SerializeField] private float speed = 10f;
+    [SerializeField] private float maxX = 4.5f; 
+    [SerializeField] private float minX = -4.5f; 
 
     private float currentHorizontalInput = 0f; // New variable to store input value
 

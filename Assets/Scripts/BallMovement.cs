@@ -3,12 +3,12 @@ using TMPro;
 
 public class BallMovement : MonoBehaviour
 {
-    public float initialSpeed = 10f; // Speed of the ball
-    public TextMeshProUGUI startInstructionText; // Reference to the instruction text UI
-    public float deathZPosition; // Z position at which the ball is considered "missed"
-    public Vector3 initialPosition; // Starting position of the ball
-    public GameObject explosionPrefab; // Prefab to instantiate on ball destruction
-    public AudioManager audioManager;
+    [SerializeField] private float initialSpeed = 10f; // Speed of the ball
+    [SerializeField] private TextMeshProUGUI startInstructionText; // Reference to the instruction text UI
+    [SerializeField] private float deathZPosition; // Z position at which the ball is considered "missed"
+    [SerializeField] private Vector3 initialPosition; // Starting position of the ball
+    [SerializeField] private GameObject explosionPrefab; // Prefab to instantiate on ball destruction
+    [SerializeField] private AudioManager audioManager;
     private Rigidbody rb; // Rigidbody component of the ball
     public bool IsLaunched { get; private set; } = false;
     [SerializeField] private float minBallSpeed = 8f;
@@ -106,7 +106,7 @@ public class BallMovement : MonoBehaviour
         float hitFactor = (ballX - paddleX) / (paddleWidth / 2f);
         hitFactor = Mathf.Clamp(hitFactor, -1f, 1f);
 
-        float maxX = 0.5f;
+        float maxX = 1f;
 
         Vector3 newDirection = new Vector3(
             hitFactor * maxX,

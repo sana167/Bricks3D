@@ -15,6 +15,11 @@ public class SunController : MonoBehaviour
         float elevation = Random.Range(minElevation, maxElevation);
         float azimuth = Random.Range(minAzimuth, maxAzimuth);
 
+        if (sun == null)
+        {
+            Debug.LogWarning("Sun Light is not assigned in the SunController.");
+            return;
+        }
         sun.transform.rotation = Quaternion.Euler(elevation, azimuth, 0f);
     }
 }

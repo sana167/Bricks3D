@@ -1,40 +1,64 @@
-using System;
+using TMPro;
 using UnityEngine;
 
 public class BrickLevelSpawner : MonoBehaviour
 {
     // Define your grid layout
-    private int rows = 4;
-    private int columns = 10;
-    private Vector2 spacing = new Vector2(-1f, -0.8f);
-    private Vector3 spawnOrigin = new Vector3(4.5f, 0.5f, -4.666f);
-    public GameObject normalBrickPrefab; // Assign the Normal Brick prefab in the Inspector
-    public GameObject toughBrickPrefab; // Assign the Tough Brick prefab in the Inspector
-    public LevelManager levelManager; // Assign the LevelManager in the Inspector
-    public AudioManager audioManager; // Assign the AudioManager in the Inspector
-    public SunController sunController; // Assign the SunController in the Inspector
+    [SerializeField] private int rows = 4;
+    [SerializeField] private int columns = 10;
+    [SerializeField] private Vector2 spacing = new Vector2(-1f, -0.8f);
+    [SerializeField] private Vector3 spawnOrigin = new Vector3(4.5f, 0.5f, -4.666f);
+    private GameObject currentLevelBrick;
+    private Transform brickParent;
+    [SerializeField] private GameObject normalBrickPrefab; // Assign the Normal Brick prefab in the Inspector
+    [SerializeField] private GameObject toughBrickPrefab; // Assign the Tough Brick prefab in the Inspector
+    [SerializeField] private LevelManager levelManager; // Assign the LevelManager in the Inspector
+    [SerializeField] private AudioManager audioManager; // Assign the AudioManager in the Inspector
+    [SerializeField] private SunController sunController; // Assign the SunController in the Inspector
+    [SerializeField] private TextMeshProUGUI levelText; // Assign the TextMeshProUGUI in the Inspector
+    private int currentLevel = 1;
 
     public void Start()
     {
-        SpawnLevel(MainMenu.SelectedLevel);
+        SpawnLevel(MainMenu.GetSelectedLevel());
     }
 
-    private void SpawnLevel(int level)
+    public void SpawnLevel(int level)
     {
+        currentLevel = level;
         if (level == 1)
         {
-            SpawnLevel(normalBrickPrefab);
+            currentLevelBrick = normalBrickPrefab;
         }
         else if (level == 2)
         {
-            SpawnLevel(toughBrickPrefab);
+            currentLevelBrick = toughBrickPrefab;
         }
+        else
+        {
+            Debug.LogWarning($"Unknown level {level}. Loading normal bricks.");
+            currentLevelBrick = normalBrickPrefab;
+        }
+        SpawnLevel();
     }
 
-    public void SpawnLevel(GameObject brickPrefab)
+    private void SpawnLevel()
     {
-        if (sunController != null) {
+        if (brickParent != null)
+        {
+            Destroy(brickParent.gameObject);
+        }
+
+        GameObject parent = new("Bricks");
+        brickParent = parent.transform;
+
+        if (sunController != null)
+        {
             sunController.RandomizeSun();
+        }
+        if (levelText != null)
+        {
+            levelText.text = $"Level {currentLevel}";
         }
         int currentBrickCount = 0;
         for (int x = 0; x < columns; x++)
@@ -48,9 +72,12 @@ public class BrickLevelSpawner : MonoBehaviour
                     spawnOrigin.z - (z * spacing.y)
                 );
 
-                GameObject brickObj = Instantiate(brickPrefab, spawnPos, Quaternion.identity);
+                GameObject brickObj = Instantiate(currentLevelBrick, spawnPos, Quaternion.identity, brickParent);
                 Brick brick = brickObj.GetComponent<Brick>();
-                brick.Initialize(levelManager, audioManager);
+                if (brick != null)
+                {
+                    brick.Initialize(levelManager, audioManager);
+                }
                 currentBrickCount++;
             }
         }

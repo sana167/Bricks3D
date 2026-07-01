@@ -14,8 +14,15 @@ public class PlantSpawner : MonoBehaviour
 
     [SerializeField] private float exclusionRadius = 8f;
 
+    [SerializeField] private Transform foliage;
+
     private void Start()
     {
+        if (plantPrefabs == null || plantPrefabs.Length == 0)
+        {
+            Debug.LogWarning("No plant prefabs assigned to PlantSpawner.");
+            return;
+        }
         for (int i = 0; i < plantCount; i++)
         {
             SpawnPlant();
@@ -38,7 +45,8 @@ public class PlantSpawner : MonoBehaviour
         GameObject plant = Instantiate(
             plantPrefabs[Random.Range(0, plantPrefabs.Length)],
             pos,
-            Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+            Quaternion.Euler(0, Random.Range(0f, 360f), 0),
+            foliage);
 
         float scale = Random.Range(1f, 4f);
         plant.transform.localScale *= scale;

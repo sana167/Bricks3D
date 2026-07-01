@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour
         }
         if (brickLevelSpawner != null)
         {
-            brickLevelSpawner.SpawnLevel(brickLevelSpawner.toughBrickPrefab);
+            brickLevelSpawner.SpawnLevel(MainMenu.GetNextLevel());
         }
     }
 }
