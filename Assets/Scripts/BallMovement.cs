@@ -15,7 +15,31 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private float minBallSpeed = 8f;
     [SerializeField] private float maxBallSpeed = 12f;
     [SerializeField] private float minZSpeed = 2f;
+    [SerializeField] private GameObject electricEffectPrefab;
 
+    private bool isElectric = false;
+    private float electricTimer = 0f;
+    private GameObject electricEffectInstance;
+    private Vector3 velocityBeforeCollision;
+
+    public bool IsElectric => isElectric;
+
+    public void ActivateElectricBall(float duration)
+    {
+        isElectric = true;
+        electricTimer = duration;
+
+        if (electricEffectPrefab != null && electricEffectInstance == null)
+        {
+            electricEffectInstance = Instantiate(
+                electricEffectPrefab,
+                transform.position,
+                Quaternion.identity,
+                transform
+            );
+        }
+    }
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,6 +69,20 @@ public class BallMovement : MonoBehaviour
 
     void Update()
     {
+        if (isElectric)
+        {
+            electricTimer -= Time.deltaTime;
+
+            if (electricTimer <= 0f)
+            {
+                isElectric = false;
+
+                if (electricEffectInstance != null)
+                {
+                    Destroy(electricEffectInstance);
+                }
+            }
+        }
         // Check if the ball has fallen below the death Z position
         if (transform.position.z > deathZPosition)
         {
@@ -84,6 +122,12 @@ public class BallMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Brick") && isElectric)
+        {
+            rb.linearVelocity = velocityBeforeCollision.normalized * initialSpeed;
+            return;
+        }
+
         if (audioManager != null && !collision.gameObject.CompareTag("Brick"))
         {
             audioManager.PlayBounce();
@@ -129,7 +173,7 @@ public class BallMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (!IsLaunched) return;
-
+        velocityBeforeCollision = rb.linearVelocity;
         KeepBallMoving();
     }
 

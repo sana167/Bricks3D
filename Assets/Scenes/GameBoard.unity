@@ -281,6 +281,7 @@ MonoBehaviour:
   minBallSpeed: 8
   maxBallSpeed: 12
   minZSpeed: 2
+  electricEffectPrefab: {fileID: 2537974114303424827, guid: 0aba2c72e06a92047981899869b6ab80, type: 3}
 --- !u!1 &76257756
 GameObject:
   m_ObjectHideFlags: 0
