@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
 public class Brick : MonoBehaviour
 {
     [SerializeField] private GameObject damagePrefab;
@@ -10,6 +11,8 @@ public class Brick : MonoBehaviour
 
     [SerializeField] private int hitPoints = 1;
     [SerializeField] private Material damagedMaterial;
+    [SerializeField] private GameObject aimAssistPowerUpPrefab;
+    [SerializeField] private float aimAssistDropChance = 0.2f;
 
     private Renderer brickRenderer;
 
@@ -48,6 +51,13 @@ public class Brick : MonoBehaviour
             }
 
             return;
+        }
+        
+        if (aimAssistPowerUpPrefab != null && Random.value <= aimAssistDropChance)
+        {
+            Instantiate(aimAssistPowerUpPrefab,
+                transform.position + Vector3.up * 0.1f,
+                aimAssistPowerUpPrefab.transform.rotation);
         }
 
         Destroy(gameObject);

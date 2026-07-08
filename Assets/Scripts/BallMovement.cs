@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 
+[RequireComponent(typeof(Rigidbody))]
 public class BallMovement : MonoBehaviour
 {
     [SerializeField] private float initialSpeed = 10f; // Speed of the ball
@@ -99,11 +100,19 @@ public class BallMovement : MonoBehaviour
 
     private void AdjustBounceFromPaddle(Collision collision)
     {
-        float paddleX = collision.transform.position.x;
-        float ballX = transform.position.x;
+        Vector3 paddlePosition = collision.transform.position;
+        Vector3 ballPosition = transform.position;
         float paddleWidth = collision.collider.bounds.size.x;
+        Vector3 newDirection = GetPredictedPaddleBounceDirection(
+            paddlePosition,
+            paddleWidth,
+            ballPosition);
+        rb.linearVelocity = newDirection * initialSpeed;
+    }
 
-        float hitFactor = (ballX - paddleX) / (paddleWidth / 2f);
+    public Vector3 GetPredictedPaddleBounceDirection(Vector3 paddlePosition, float paddleWidth, Vector3 predictedHitPoint)
+    {
+        float hitFactor = (predictedHitPoint.x - paddlePosition.x) / (paddleWidth / 2f);
         hitFactor = Mathf.Clamp(hitFactor, -1f, 1f);
 
         float maxX = 1f;
@@ -114,7 +123,7 @@ public class BallMovement : MonoBehaviour
             -1f
         ).normalized;
 
-        rb.linearVelocity = newDirection * initialSpeed;
+        return newDirection;
     }
 
     private void FixedUpdate()
