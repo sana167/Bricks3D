@@ -153,6 +153,7 @@ Inspired by the classic **Breakout** arcade game while exploring Unity and C# ga
 
 Special thanks to:
 
+- **[mooch561](https://github.com/mooch561/)** for sharing ideas, offering motivation, and inspiring me throughout my game development journey.
 - **Google Gemini** for helping me explore ideas, solve programming problems, and learn Unity.
 - **OpenAI ChatGPT** for explaining concepts, reviewing code, suggesting improvements, and helping design new gameplay features.
 
