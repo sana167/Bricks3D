@@ -18,6 +18,16 @@ public class Brick : MonoBehaviour
 
     private Renderer brickRenderer;
     private bool isDestroyed;
+    private BrickLevelSpawner brickLevelSpawner;
+    private int gridX = -1;
+    private int gridZ = -1;
+
+    public void SetGridInfo(BrickLevelSpawner spawner, int x, int z)
+    {
+        brickLevelSpawner = spawner;
+        gridX = x;
+        gridZ = z;
+    }
 
     private void Awake()
     {
@@ -94,6 +104,11 @@ public class Brick : MonoBehaviour
         if (canDropPowerUp)
         {
             TryDropPowerUp();
+        }
+
+        if (brickLevelSpawner != null)
+        {
+            brickLevelSpawner.ClearGridSlot(gridX, gridZ);
         }
 
         Destroy(gameObject);

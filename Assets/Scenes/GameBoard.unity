@@ -3206,6 +3206,8 @@ MonoBehaviour:
   audioManager: {fileID: 1749749326}
   sunController: {fileID: 1323606017}
   levelText: {fileID: 1305379004}
+  spawnerBrickPrefab: {fileID: 1419901253316792088, guid: 031bc73e9d1473c4e8c48db6e384eb06, type: 3}
+  level3Rows: 4
 --- !u!4 &1990286912
 Transform:
   m_ObjectHideFlags: 0

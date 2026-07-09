@@ -34,4 +34,9 @@ public class LevelManager : MonoBehaviour
             brickLevelSpawner.SpawnLevel(MainMenu.GetNextLevel());
         }
     }
+
+    public void AddBrick()
+    {
+        totalBricks++;
+    }
 }

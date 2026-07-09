@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    private static int totalLevels = 2;
+    private static readonly int totalLevels = 3;
     private static int SelectedLevel = 1;
     [SerializeField] private TMP_Dropdown levelDropdown;
     [SerializeField] private Button playButton;

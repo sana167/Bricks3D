@@ -162,4 +162,4 @@ MonoBehaviour:
   aimAssistPowerUpPrefab: {fileID: 5785506168102593684, guid: 2e32b0bb6d215504a872a04f288e9677, type: 3}
   electricBallPowerUpPrefab: {fileID: 5785506168102593684, guid: 8881b96dab395bd46a793ac4212a7ed9, type: 3}
   bombPowerUpPrefab: {fileID: 5785506168102593684, guid: 63352976c6ce30c459cabab6d5c71cda, type: 3}
-  powerUpDropChance: 1
+  powerUpDropChance: 0.5
