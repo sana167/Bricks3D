@@ -13,9 +13,11 @@ public class Brick : MonoBehaviour
     [SerializeField] private Material damagedMaterial;
     [SerializeField] private GameObject aimAssistPowerUpPrefab;
     [SerializeField] private GameObject electricBallPowerUpPrefab;
+    [SerializeField] private GameObject bombPowerUpPrefab;
     [SerializeField] private float powerUpDropChance = 0.2f;
 
     private Renderer brickRenderer;
+    private bool isDestroyed;
 
     private void Awake()
     {
@@ -31,14 +33,27 @@ public class Brick : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Ball")) return;
+
         BallMovement ball = collision.gameObject.GetComponent<BallMovement>();
         bool electricHit = ball != null && ball.IsElectric;
+
+        TakeHit(electricHit);
+    }
+
+    public void DestroyFromPowerUp()
+    {
+        hitPoints = 0;
+        BreakBrick(false);
+    }
+
+    private void TakeHit(bool instantDestroy)
+    {
         if (audioManager != null)
         {
             audioManager.PlayShatter();
         }
 
-        if (electricHit)
+        if (instantDestroy)
         {
             hitPoints = 0;
         }
@@ -49,35 +64,36 @@ public class Brick : MonoBehaviour
 
         if (hitPoints > 0)
         {
-            if (damagedMaterial != null && brickRenderer != null)
-            {
-                brickRenderer.material = damagedMaterial;
-            }
-
-            if (damagePrefab != null)
-            {
-                Instantiate(damagePrefab, transform.position, Quaternion.identity);
-            }
-
+            ShowDamage();
             return;
         }
 
-        if (Random.value <= powerUpDropChance)
+        BreakBrick(true);
+    }
+
+    private void ShowDamage()
+    {
+        if (damagedMaterial != null && brickRenderer != null)
         {
-            GameObject powerUpPrefab = null;
-            if (aimAssistPowerUpPrefab != null && Random.value <= 0.5f)
-            {
-                powerUpPrefab = aimAssistPowerUpPrefab;
-            } else if (electricBallPowerUpPrefab != null)
-            {
-                powerUpPrefab = electricBallPowerUpPrefab;
-            }
-            if (powerUpPrefab != null)
-            {
-                Instantiate(powerUpPrefab,
-                        transform.position + Vector3.up * 0.1f,
-                        powerUpPrefab.transform.rotation);
-            }
+            brickRenderer.material = damagedMaterial;
+        }
+
+        if (damagePrefab != null)
+        {
+            Instantiate(damagePrefab, transform.position, Quaternion.identity);
+        }
+    }
+
+    private void BreakBrick(bool canDropPowerUp)
+    {
+        if (isDestroyed)
+            return;
+
+        isDestroyed = true;
+
+        if (canDropPowerUp)
+        {
+            TryDropPowerUp();
         }
 
         Destroy(gameObject);
@@ -87,5 +103,55 @@ public class Brick : MonoBehaviour
 
         if (levelManager != null)
             levelManager.BrickDestroyed();
+    }
+
+    private void TryDropPowerUp()
+    {
+        if (Random.value > powerUpDropChance)
+            return;
+
+        GameObject powerUpPrefab = PickPowerUpPrefab();
+        if (powerUpPrefab == null)
+            return;
+
+        Instantiate(powerUpPrefab,
+                transform.position + Vector3.up * 0.1f,
+                powerUpPrefab.transform.rotation);
+    }
+
+    private GameObject PickPowerUpPrefab()
+    {
+        GameObject[] availablePowerUps =
+        {
+            aimAssistPowerUpPrefab,
+            electricBallPowerUpPrefab,
+            bombPowerUpPrefab
+        };
+
+        int availableCount = 0;
+        foreach (GameObject powerUpPrefab in availablePowerUps)
+        {
+            if (powerUpPrefab != null)
+            {
+                availableCount++;
+            }
+        }
+
+        if (availableCount == 0)
+            return null;
+
+        int selectedIndex = Random.Range(0, availableCount);
+        foreach (GameObject powerUpPrefab in availablePowerUps)
+        {
+            if (powerUpPrefab == null)
+                continue;
+
+            if (selectedIndex == 0)
+                return powerUpPrefab;
+
+            selectedIndex--;
+        }
+
+        return null;
     }
 }
