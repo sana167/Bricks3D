@@ -4,7 +4,7 @@
 
 A modern 3D recreation of the classic Breakout game built with **Unity**.
 
-Instead of a 2D paddle and bricks, Bricks3D takes the gameplay into a 3D world with dynamic lighting, particle effects, power-ups, and multiple game modes.
+Instead of a 2D paddle and bricks, Bricks3D takes the gameplay into a 3D world with dynamic lighting, particle effects, power-ups, and procedurally generated foliage.
 
 This project was built as part of my journey learning Unity game development.
 
@@ -71,31 +71,9 @@ As you progress, the game introduces stronger bricks and special power-ups that 
 
 | Key | Action |
 |------|--------|
-| Mouse | Move paddle |
-| Left Click | Launch ball (if applicable) |
+| A/D | Move paddle |
+| Space | Launch ball (if applicable) |
 | Esc | Pause / Quit |
-
----
-
-## Project Structure
-
-```
-Assets/
-│
-├── Scripts/
-│   ├── Ball/
-│   ├── Brick/
-│   ├── Paddle/
-│   ├── PowerUps/
-│   ├── UI/
-│   └── Managers/
-│
-├── Prefabs/
-├── Materials/
-├── Scenes/
-├── Audio/
-└── Particles/
-```
 
 ---
 
