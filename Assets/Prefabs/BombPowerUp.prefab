@@ -159,6 +159,6 @@ MonoBehaviour:
   bobHeight: 0.2
   bobSpeed: 2
   rotationSpeed: 90
-  explosionRadius: 2
+  explosionRadius: 1
   explosionPrefab: {fileID: 2666437935308462311, guid: 774beeaa0f911e947b4cd48de4cf4e0d, type: 3}
   audioManager: {fileID: 0}

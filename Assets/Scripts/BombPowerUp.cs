@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BombPowerUp : PowerUp
 {
-    [SerializeField] private float explosionRadius = 2f;
+    [SerializeField] private float explosionRadius = 1f;
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private AudioManager audioManager;
 
